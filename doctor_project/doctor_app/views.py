@@ -159,7 +159,7 @@ def updateAppoinmentStatus(request, appoinment_id):
             appointment.appoinment_doctor_remarks = doctor_remarks
             appointment.save()
             address = appointment.appointment_patient.email
-            subject = f'Cloud Devops Project - Doctor Appoinment Update- {appoinment_id}'
+            subject = f'Cloud Devops  Doctor Appoinment Project Update- {appoinment_id}'
             message = f'Your Doctor Appoinment with appoinment  id {appoinment_id} placed on {appointment.appointment_date:%d-%m-%Y} status has been changed to {new_status}. with the following doctors remarks {appointment.appoinment_doctor_remarks}'
             send_mail(subject, message, settings.EMAIL_HOST_USER, [address])
             messages.success(request,"Appoinment Status updated successfully and the mail has been sent to the Patient.")
