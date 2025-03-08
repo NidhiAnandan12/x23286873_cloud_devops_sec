@@ -21,4 +21,10 @@ class CreateDepartmentForm(forms.ModelForm):
 class CreateAppoinmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ('__all__')
+        fields = ('appointment_date','appointment_time','appointment_doctor','appointment_patient')
+        widgets = {
+            'appointment_date': forms.DateInput(attrs={'class': 'form-control', 'type': "date"}),
+            'appointment_time': forms.TimeInput(attrs={'class': 'form-control', 'type': "time"}),
+            'appointment_doctor': forms.Select(attrs={'class': 'form-control'}),
+            'appointment_patient': forms.Select(attrs={'class': 'form-control'})
+        }

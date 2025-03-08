@@ -18,6 +18,9 @@ urlpatterns = [
     path('viewdepartment',views.ViewDepartment ,name='adminViewDepartment'),
 
     path('bookdoctor/<int:doctor_id>',views.BookDoctorAppoinment ,name='bookDoctorAppoinment'),
+    path('appoinments/',views.MyAppoinments ,name='myAppoinments'),
+    path('appoinmentdetails/<int:appoinment_id>',views.AppoinmentDetails ,name='appoinmentDetails'),
+
 
     
     

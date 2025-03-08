@@ -1,0 +1,65 @@
+{% extends "doctor_app/base.html" %} 
+{% block content %}
+<h1 class="text-center" >My Appoinments</h1>
+
+<table class="table table-bordered" id="orders_table">
+    <thead>
+      <tr>
+        <th scope="col">Appoinment Id</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Appointment Date</th>
+        <th scope="col">Appointment Status</th>
+        {% if user.is_superuser %}
+        <th scope="col">User</th>
+        <th scope="col">Update Appoinment Status</th>
+        {% endif %}
+
+
+      </tr>
+    </thead>
+    <tbody>
+         {% if appoinments %} 
+        {% for appoinment in appoinments %}
+                        <tr>
+                            <td><a href="{% url 'appoinmentDetails' appoinment.appointment_id %}">{{ appoinment.appointment_id }}</a></td>
+                            <td>{{ appoinment.appointment_patient.username }}</td>
+                            <td>{{ appoinment.appointment_doctor.doctor_name }}</td>
+                            <td>{{ appoinment.appointment_date }}</td>
+
+                            <td><span class="badge bg-info text-dark"> {{ appoinment.appoinment_booking_status }}</span>
+                               </td>
+                               {% if user.is_superuser %}
+
+                               <td>{{ appoinment.appointment_patient.username }}</td>
+
+                            <td><a href="" class="btn btn-warning">Update</a> </td>  
+                            {% endif %}   
+                        </tr>
+                {% endfor%}
+       {% endif %} 
+      
+    </tbody>
+  </table>
+
+{% endblock %}
+
+
+{% block script %}
+<script>console.log("hello")
+$(document).ready(function () {
+    $('#orders_table').dataTable({
+  columnDefs: [{
+    "defaultContent": "-",
+    "targets": "_all"
+  }],
+  paging:true
+});
+});
+
+
+</script>
+
+{% endblock %}
+
+

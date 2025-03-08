@@ -109,17 +109,41 @@ def DeleteDepartment(request, department_id):
     return redirect('adminViewDepartment')
 
 def BookDoctorAppoinment(request,doctor_id):
+    doctor = Doctor.objects.get(doctor_id=doctor_id)
     if request.method == "POST":
         form = CreateAppoinmentForm(request.POST)
         if form.is_valid():
           form.save()
-          messages.success(request,"Department created successfully")
-          return redirect('adminViewDepartment')
+          messages.success(request,"Appoinment created successfully")
+          return redirect('doctors')
+        else:
+            # Show error messages
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+            form = CreateAppoinmentForm(instance=doctor)
+            return render(request, 'doctor_app/book_appoinment.html', {"form": form})
 
     else:   
-         doctor = Doctor.objects.get(doctor_id=doctor_id)
          form = CreateAppoinmentForm(instance=doctor)
          return render(request, 'doctor_app/book_appoinment.html', {"form": form})
+    
+
+def MyAppoinments(request):
+         if request.user.is_superuser: 
+               all_appoinments = Appointment.objects.all()
+               appoinment_context= {'appoinments':all_appoinments }
+               return render(request, 'doctor_app/my_appoinments.html',appoinment_context)  
+         else:
+              all_appoinments = Appointment.objects.filter(user = request.user)
+              appoinment_context= {'appoinments':all_appoinments }
+              return render(request, 'doctor_app/orders.html',appoinment_context)    
+
+def AppoinmentDetails(request,appoinment_id):
+     appoinment = Appointment.objects.get(appointment_id=appoinment_id)
+     appoinment_context = {'appoinment': appoinment, 'appoinment_status_choices': Appointment.AppoinmentStatus.choices}
+     return render(request, 'doctor_app/appoinment_details.html', appoinment_context) 
+
 
     
     
