@@ -20,7 +20,7 @@
                     <h3 class="card-title">{{ doctor.doctor_name }}</h3>
                     <h6 class="card-title">{{ doctor.doctor_department.department_name }}</h6>
                     <h6 class="card-title">{{ doctor.doctor_cost }} € / Appoinment</h6>                  
-                    <a href="" class="btn btn-success">Book Appoinment</a>
+                    <a href="{% url 'bookDoctorAppoinment' doctor.doctor_id %}" class="btn btn-success">Book Appoinment</a>
 
 
                 </div>

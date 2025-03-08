@@ -17,3 +17,8 @@ class CreateDepartmentForm(forms.ModelForm):
     class Meta:
         model = DoctorDepartment
         fields = ('__all__')
+
+class CreateAppoinmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ('__all__')

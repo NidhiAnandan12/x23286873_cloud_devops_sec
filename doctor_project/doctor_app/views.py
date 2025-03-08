@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from .models import DoctorDepartment,Doctor,Appointment,Patient
-from .forms import CreateDoctorForm,CreateDepartmentForm
+from .forms import CreateDoctorForm,CreateDepartmentForm,CreateAppoinmentForm
 
 
 def index(request):
@@ -63,10 +63,65 @@ def AdminViewDoctors(request):
 def DoctorSearch(request):        
     if request.method == 'GET': 
           doctor_name =  request.GET.get('search')    
-          doctors = Doctor.objects.filter(doctor_name_name__icontains=doctor_name) 
+          doctors = Doctor.objects.filter(doctor_name__icontains=doctor_name) 
           if not doctors:
                messages.error(request,f"No doctors found for {doctor_name}")
                return redirect('doctors')
           doctors_context = {'doctors': doctors,'doctor_search' :True}
           return render(request, 'doctor_app/doctors.html', doctors_context)
+    
+def CreateDepartment(request):
+     if request.method == "POST":
+        form = CreateDepartmentForm(request.POST)
+        if form.is_valid():
+          form.save()
+          messages.success(request,"Department created successfully")
+          return redirect('adminViewDepartment')
+     else:   
+          form = CreateDepartmentForm()
+          return render(request, 'doctor_app/create_department.html', {"form": form})
+
+
+
+
+def UpdateDepartment(request, department_id):
+    department = DoctorDepartment.objects.get(id=department_id)
+    if request.method == 'POST':
+        form = CreateDepartmentForm(request.POST,instance=department)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Product Category updated Successfully.")
+            return redirect('adminViewDepartment')
+    else:
+        form = CreateDepartmentForm(instance=department)
+
+    return render(request,'doctor_app/update_department.html',{'form': form})
+
+def ViewDepartment(request):
+     departments = DoctorDepartment.objects.all()
+     departments_items_context = {'departments' :departments}
+     return render(request,'doctor_app/admin_view_department.html',departments_items_context)
+
+def DeleteDepartment(request, department_id):
+    department = DoctorDepartment.objects.get(id=department_id)
+    department.delete()
+    messages.success(request,"Department Deleted Successfully.")
+    return redirect('adminViewDepartment')
+
+def BookDoctorAppoinment(request,doctor_id):
+    if request.method == "POST":
+        form = CreateAppoinmentForm(request.POST)
+        if form.is_valid():
+          form.save()
+          messages.success(request,"Department created successfully")
+          return redirect('adminViewDepartment')
+
+    else:   
+         doctor = Doctor.objects.get(doctor_id=doctor_id)
+         form = CreateAppoinmentForm(instance=doctor)
+         return render(request, 'doctor_app/book_appoinment.html', {"form": form})
+
+    
+    
+    
 

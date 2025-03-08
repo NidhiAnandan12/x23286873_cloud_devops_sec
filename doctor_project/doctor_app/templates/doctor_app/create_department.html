@@ -1,0 +1,15 @@
+{% extends "doctor_app/base.html" %} 
+{% block content %}
+<div class="text-center"> 
+
+<h1>Create Doctor Department</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button btn-success"
+            type="submit">Create Department
+    </button>
+</form>
+</div>
+
+{% endblock %}
