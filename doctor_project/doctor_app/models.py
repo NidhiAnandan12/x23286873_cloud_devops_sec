@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from decimal import Decimal
+
 
 class DoctorDepartment(models.Model):
     department_name = models.CharField(max_length=100)
@@ -12,7 +14,7 @@ class Doctor(models.Model):
     doctor_age = models.IntegerField()
     doctor_department = models.ForeignKey(DoctorDepartment, on_delete=models.CASCADE,null=False)
     doctor_image = models.ImageField(upload_to="images/doctor",default=None)
-   
+    doctor_cost = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
 
 class Patient(AbstractUser):
     patient_address = models.TextField(max_length=500, null=False)

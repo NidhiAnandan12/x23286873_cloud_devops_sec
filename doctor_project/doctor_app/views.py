@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from .models import DoctorDepartment,Doctor,Appointment,Patient
+from .forms import CreateDoctorForm,CreateDepartmentForm
 
 
 def index(request):
@@ -25,3 +26,47 @@ def Doctors(request):
      doctors = Doctor.objects.all()
      doctors_context = {'doctors': doctors}
      return render(request, 'doctor_app/doctors.html', doctors_context)
+
+def CreateDoctor(request):
+     if request.method == "POST":
+        form = CreateDoctorForm(request.POST,request.FILES)
+        form.save()
+        if form.is_valid():
+          return redirect('doctors')
+     else:   
+          form = CreateDoctorForm()
+          return render(request, 'doctor_app/createdoctor.html', {"form": form})
+
+def UpdateDoctor(request, doctor_id):
+    doctor = Doctor.objects.get(doctor_id=doctor_id)
+    if request.method == 'POST':
+        form = CreateDoctorForm(request.POST,request.FILES, instance=doctor)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Doctor Updated Successfully.")
+            return redirect('adminViewDoctors')
+    else:
+        form = CreateDoctorForm(instance=doctor)
+
+    return render(request,'doctor_app/updatedoctor.html',{'form': form})
+
+def DeleteDoctor(request, doctor_id):
+    doctor = Doctor.objects.get(doctor_id=doctor_id)
+    doctor.delete()
+    return redirect('adminViewDoctors')
+
+def AdminViewDoctors(request):
+     doctors = Doctor.objects.all()
+     doctors_context = {'doctors' :doctors}
+     return render(request,'doctor_app/admin_view_doctors.html',doctors_context)
+
+def DoctorSearch(request):        
+    if request.method == 'GET': 
+          doctor_name =  request.GET.get('search')    
+          doctors = Doctor.objects.filter(doctor_name_name__icontains=doctor_name) 
+          if not doctors:
+               messages.error(request,f"No doctors found for {doctor_name}")
+               return redirect('doctors')
+          doctors_context = {'doctors': doctors,'doctor_search' :True}
+          return render(request, 'doctor_app/doctors.html', doctors_context)
+

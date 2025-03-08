@@ -7,6 +7,11 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('doctors', views.Doctors, name='doctors'),
 
+    path('createdoctor',views.CreateDoctor ,name='adminCreateDoctor'),
+    path('updatedoctor/<int:doctor_id>',views.UpdateDoctor ,name='adminUpdateDoctor'),
+    path('deletedoctor/<int:doctor_id>',views.DeleteDoctor ,name='adminDeleteDoctor'),
+    path('viewdoctor',views.AdminViewDoctors ,name='adminViewDoctors'),
+    path('searchdoctor',views.DoctorSearch ,name='doctorSearch'),
     
     
     

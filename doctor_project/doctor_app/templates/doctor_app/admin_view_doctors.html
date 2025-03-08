@@ -1,0 +1,55 @@
+{% extends "doctor_app/base.html" %} 
+{% block content %}
+<h1 class="text-center adminproductsheader" >All Doctors</h1>
+<div class="text-end"><a href="{% url 'adminCreateDoctor' %}" class="btn btn-success text-end mb-2">Create New Doctor</a>
+</div>
+
+<table class="table table-bordered" id="doctors_table">
+    <thead>
+      <tr>
+        <th scope="col">Doctor Image</th>
+        <th scope="col">Doctor Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Cost Per Appoinment</th>
+        <th scope="col">Admin Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% if doctors %}
+        {% for doctor in doctors%}
+                        <tr>
+                            <td><img class="card-img-top" src="{{ doctor.doctor_image.url }}" alt="Product image" style="width: 30%;height: 10vw;object-fit: contain;"></td>
+                            <td>{{ doctor.doctor_name }}</td>
+                            <td>{{ doctor.doctor_department }}</td>
+                            <td>{{ doctor.doctor_cost }} €</td>
+                            <td><a href="{% url 'adminUpdateDoctor' doctor.doctor_id %}" class="btn btn-warning">Update</a>   
+                                <a href="{% url 'adminDeleteDoctor' doctor.doctor_id %}" class="btn btn-danger">Delete</a></td>
+                        
+                        </tr>
+                {% endfor%}
+      {% endif %}
+      
+    </tbody>
+  </table>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+$(document).ready(function () {
+    $('#doctors_table').dataTable({
+  columnDefs: [{
+    "defaultContent": "-",
+    "targets": "_all"
+  }],
+  paging:true
+});
+});
+
+
+</script>
+
+{% endblock %}
+
+
