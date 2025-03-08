@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.shortcuts import render,redirect
 from .models import DoctorDepartment,Doctor,Appointment,Patient
 from .forms import CreateDoctorForm,CreateDepartmentForm,CreateAppoinmentForm
+from django.core.mail import send_mail
+from django.conf import settings
+
+
 
 
 def index(request):
@@ -143,6 +147,23 @@ def AppoinmentDetails(request,appoinment_id):
      appoinment = Appointment.objects.get(appointment_id=appoinment_id)
      appoinment_context = {'appoinment': appoinment, 'appoinment_status_choices': Appointment.AppoinmentStatus.choices}
      return render(request, 'doctor_app/appoinment_details.html', appoinment_context) 
+
+def updateAppoinmentStatus(request, appoinment_id):
+    appointment = Appointment.objects.get(appointment_id=appoinment_id)
+    if request.method == "POST":
+        new_status = request.POST.get("appoinment_status")  
+        doctor_remarks = request.POST.get("doctor_remarks")
+        print(doctor_remarks)
+        if new_status in dict(Appointment.AppoinmentStatus.choices):  
+            appointment.appoinment_booking_status = new_status
+            appointment.appoinment_doctor_remarks = doctor_remarks
+            appointment.save()
+            address = appointment.appointment_patient.email
+            subject = f'Cloud Devops Project - Doctor Appoinment Update- {appoinment_id}'
+            message = f'Your Doctor Appoinment with appoinment  id {appoinment_id} placed on {appointment.appointment_date:%d-%m-%Y} status has been changed to {new_status}. with the following doctors remarks {appointment.appoinment_doctor_remarks}'
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [address])
+            messages.success(request,"Appoinment Status updated successfully and the mail has been sent to the Patient.")
+    return redirect("appoinmentDetails", appoinment_id=appoinment_id)
 
 
     

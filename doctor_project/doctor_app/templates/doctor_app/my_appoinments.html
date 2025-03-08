@@ -33,7 +33,7 @@
 
                                <td>{{ appoinment.appointment_patient.username }}</td>
 
-                            <td><a href="" class="btn btn-warning">Update</a> </td>  
+                            <td><a href="{% url 'appoinmentDetails' appoinment.appointment_id %}" class="btn btn-warning">Update</a> </td>  
                             {% endif %}   
                         </tr>
                 {% endfor%}
