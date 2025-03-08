@@ -1,0 +1,18 @@
+{% extends "doctor_app/base.html" %} 
+{% load static %}
+
+{% block content %}
+<h1>Doctor Page</h1>
+{% endblock %}
+
+{% block script %}
+<script>
+    setTimeout(function() {
+        let alertBox = document.querySelector(".alert");
+        if (alertBox) {
+            alertBox.style.display = "none";
+        }
+    }, 3000); // Hides alert after 3 seconds
+</script>
+
+{% endblock %}

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap5',
     'doctor_app'
 ]
 
@@ -137,3 +138,5 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = (
 BASE_DIR
 )
+
+ALLOWED_HOSTS = ['*']
