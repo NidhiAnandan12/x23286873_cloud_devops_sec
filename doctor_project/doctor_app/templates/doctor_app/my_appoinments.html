@@ -23,15 +23,15 @@
         {% for appoinment in appoinments %}
                         <tr>
                             <td><a href="{% url 'appoinmentDetails' appoinment.appointment_id %}">{{ appoinment.appointment_id }}</a></td>
-                            <td>{{ appoinment.appointment_patient.username }}</td>
-                            <td>{{ appoinment.appointment_doctor.doctor_name }}</td>
-                            <td>{{ appoinment.appointment_date }}</td>
+                            <td>{{ appoinment.patient.username }}</td>
+                            <td>{{ appoinment.doctor.name }}</td>
+                            <td>{{ appoinment.date }}</td>
 
-                            <td><span class="badge bg-info text-dark"> {{ appoinment.appoinment_booking_status }}</span>
+                            <td><span class="badge bg-info text-dark"> {{ appoinment.booking_status }}</span>
                                </td>
                                {% if user.is_superuser %}
 
-                               <td>{{ appoinment.appointment_patient.username }}</td>
+                               <td>{{ appoinment.patient.username }}</td>
 
                             <td><a href="{% url 'appoinmentDetails' appoinment.appointment_id %}" class="btn btn-warning">Update</a> </td>  
                             {% endif %}   

@@ -5,7 +5,7 @@ from .models import Patient,DoctorDepartment,Doctor,Appointment
 class AppUserRegisterForm(UserCreationForm):
     class Meta:
         model = Patient
-        fields = UserCreationForm.Meta.fields + ('email','patient_address','patient_dob','patient_image')
+        fields = UserCreationForm.Meta.fields + ('email','address','dateofbirth','image')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
@@ -22,11 +22,11 @@ class CreateDoctorForm(forms.ModelForm):
         model = Doctor
         fields = ('__all__')
         widgets = {
-           'doctor_name': forms.TextInput(attrs={'class': 'form-control'}),
-           'doctor_age': forms.NumberInput(attrs={'class': 'form-control'}),    
-              'doctor_department': forms.Select(attrs={'class': 'form-control'}),
-                'doctor_image': forms.FileInput(attrs={'class': 'form-control'}),
-                'doctor_cost': forms.NumberInput(attrs={'class': 'form-control'}),
+           'name': forms.TextInput(attrs={'class': 'form-control'}),
+           'age': forms.NumberInput(attrs={'class': 'form-control'}),    
+              'department': forms.Select(attrs={'class': 'form-control'}),
+                'image': forms.FileInput(attrs={'class': 'form-control'}),
+                'cost': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
 class CreateDepartmentForm(forms.ModelForm):
@@ -40,10 +40,10 @@ class CreateDepartmentForm(forms.ModelForm):
 class CreateAppoinmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ('appointment_date','appointment_time','appointment_doctor','appointment_patient')
+        fields = ('date','time','doctor','patient')
         widgets = {
-            'appointment_date': forms.DateInput(attrs={'class': 'form-control', 'type': "date"}),
-            'appointment_time': forms.TimeInput(attrs={'class': 'form-control', 'type': "time"}),
-            'appointment_doctor': forms.Select(attrs={'class': 'form-control'}),
-            'appointment_patient': forms.Select(attrs={'class': 'form-control'})
+            'date': forms.DateInput(attrs={'class': 'form-control', 'type': "date"}),
+            'time': forms.TimeInput(attrs={'class': 'form-control', 'type': "time"}),
+            'doctor': forms.Select(attrs={'class': 'form-control'}),
+            'patient': forms.Select(attrs={'class': 'form-control'})
         }

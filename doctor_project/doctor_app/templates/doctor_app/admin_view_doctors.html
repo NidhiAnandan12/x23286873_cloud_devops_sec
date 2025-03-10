@@ -18,10 +18,10 @@
         {% if doctors %}
         {% for doctor in doctors%}
                         <tr>
-                            <td><img class="card-img-top" src="{{ doctor.doctor_image.url }}" alt="Product image" style="width: 30%;height: 10vw;object-fit: contain;"></td>
-                            <td>{{ doctor.doctor_name }}</td>
-                            <td>{{ doctor.doctor_department }}</td>
-                            <td>{{ doctor.doctor_cost }} €</td>
+                            <td><img class="card-img-top" src="{{ doctor.image.url }}" alt="Product image" style="width: 30%;height: 10vw;object-fit: contain;"></td>
+                            <td>{{ doctor.name }}</td>
+                            <td>{{ doctor.department }}</td>
+                            <td>{{ doctor.cost }} €</td>
                             <td><a href="{% url 'adminUpdateDoctor' doctor.doctor_id %}" class="btn btn-warning">Update</a>   
                                 <a href="{% url 'adminDeleteDoctor' doctor.doctor_id %}" class="btn btn-danger">Delete</a></td>
                         
