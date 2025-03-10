@@ -1,0 +1,18 @@
+{% extends "doctor_app/base.html" %} 
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <div class="card p-4 shadow-lg" style="width: 40rem;">  
+<h1 class="text-center">Create Doctor Department</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="text-center"> 
+    <button class="button btn-success"
+            type="submit">Create Department
+    </button>
+    </div>
+</form>
+</div>
+</div>
+
+{% endblock %}

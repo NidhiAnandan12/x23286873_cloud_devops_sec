@@ -1,0 +1,55 @@
+{% extends "doctor_app/base.html" %} 
+
+{% block content %}
+<h1 class=" adminproductsheader" >Appoinment Id - {{ appoinment.appointment_id }} Details </h1>
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-6">
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Appoinment Id: {{ appoinment.appointment_id }}</p>
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Patient Name: {{ appoinment.patient.username }}</p>
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Doctor Name: {{ appoinment.doctor.doctor_name }}</p>
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Appointment Date: {{ appoinment.date }}</p>
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Total Cost: {{ appoinment.doctor.cost }} €</p>
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Appoinment Status: <span class="badge bg-info text-dark"> {{ appoinment.booking_status }}</span> </p>   
+        <p class="order-details" style=" font-weight: 700; font-size: 20px;">Doctor Remarks: {{ appoinment.doctor_remarks }} </p>      
+   
+    
+    
+    </div>
+      <div class="col-6">
+        {% if user.is_superuser %}
+
+        <form method="post" action="{% url 'updateAppoinmentStatus' appoinment.appointment_id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="order_status" class="form-label">Update Appoinment Status</label>
+                <select class="form-select" id="appoinment_status" name="appoinment_status">
+                    {% for value, label in appoinment_status_choices %}
+                        <option value="{{ value }}" {% if appoinment.appoinment_booking_status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Doctor Remarks</label>
+                    <textarea class="form-control" name="doctor_remarks"  rows="3" required>{{ appoinment.doctor_remarks }}</textarea>
+                  </div>
+                <div class="form-text">An automatic email will be triggered to the patient once the Appoinment status is changed.</div>
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Change Status</button>
+            </div>
+        </form>
+        {% endif %}
+
+             </div>
+     
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+

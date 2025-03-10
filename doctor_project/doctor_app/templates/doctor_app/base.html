@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Doctor Appoinment Booking Application</title>
+{% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+{% load static %} <!-- Line 2 -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+  
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<style>
+
+</style>
+</head>
+
+<body>
+    <!-- Header Component -->
+    {% include "doctor_app/header.html" %}  
+    {% include "doctor_app/user_message.html" %}
+
+    <!-- Main Page Content -->
+    {% block content %} 
+
+    {% endblock %}
+    
+    
+    <!-- Javascript -->
+    {% block script %} 
+    {% endblock %}
+    <script>
+        setTimeout(function() {
+            let alertBox = document.querySelector(".alert");
+            if (alertBox) {
+                alertBox.style.display = "none";
+            }
+        }, 5000); 
+    </script>
+</body>
+</html>

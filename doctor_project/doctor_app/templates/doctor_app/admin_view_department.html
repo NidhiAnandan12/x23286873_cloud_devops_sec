@@ -1,0 +1,52 @@
+{% extends "doctor_app/base.html" %} 
+{% block content %}
+<h1 class="text-center adminproductsheader" >All Product Categories</h1>
+<div class="text-end"><a href="{% url 'adminCreateDepartment' %}" class="btn btn-success text-end mb-2">Create New Department</a>
+</div>
+
+<table class="table table-bordered" id="department_table">
+    <thead>
+      <tr>
+        <th scope="col">Department Id</th>
+        <th scope="col">Department Name</th>
+        <th scope="col">Admin Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% if departments %}
+        {% for department in departments %}
+                        <tr>
+                            <td>{{ department.id }}</td>
+                            <td>{{ department.department_name }}</td>
+                            <td><a href="{% url 'adminUpdateDepartment' department.id %}" class="btn btn-warning">Update</a>   
+                                <a href="{% url 'adminDeleteDepartment' department.id %}" class="btn btn-danger">Delete</a></td>
+                        
+                        </tr>
+                {% endfor%}
+      {% endif %}
+      
+    </tbody>
+  </table>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+$(document).ready(function () {
+    $('#department_table').dataTable({
+  columnDefs: [{
+    "defaultContent": "-",
+    "targets": "_all"
+  }],
+  paging:true
+});
+});
+
+
+</script>
+
+{% endblock %}
+
+
