@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+""" A file automatically created in each Django project. """
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
