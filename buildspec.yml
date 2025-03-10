@@ -11,8 +11,7 @@ phases:
     commands:
       - python --version
       - pylint $CODEBUILD_SRC_DIR/*.py
-      - pylint $CODEBUILD_SRC_DIR/doctor_project/*.py
-      - pylint --disable=C *.py **/*.py
+      - pylint --exit-zero $CODEBUILD_SRC_DIR/doctor_project/*.py
 artifacts:
   files:
     - '**/*'

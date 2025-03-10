@@ -1,4 +1,4 @@
-""" This file configures the urls of the application. """
+""" This file configures the urls of the project. """
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
