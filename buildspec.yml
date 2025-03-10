@@ -14,7 +14,7 @@ phases:
       - pylint --exit-zero $CODEBUILD_SRC_DIR/doctor_project/*.py
       - pylint --exit-zero $CODEBUILD_SRC_DIR/doctor_app/*.py
 
-  build:
+  test:
     commands:
       - echo "Running tests..."
       - pytest --junitxml=report.xml  
