@@ -13,6 +13,14 @@ phases:
       - pylint --exit-zero $CODEBUILD_SRC_DIR/*.py
       - pylint --exit-zero $CODEBUILD_SRC_DIR/doctor_project/*.py
       - pylint --exit-zero $CODEBUILD_SRC_DIR/doctor_app/*.py
+
+  build:
+    commands:
+      - echo "Running tests..."
+      - pytest --junitxml=report.xml  
+      - echo "Building project..."
+      - zip -r application.zip . 
 artifacts:
   files:
     - '**/*'
+    - report.xml
